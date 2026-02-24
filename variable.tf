@@ -1,18 +1,18 @@
 variable "aws_region" {
   type        = string
-  default     = "us-east-1"
+  default     = "ap-south-1"
   description = "AWS region"
 }
 
 variable "instance_type" {
   type        = string
-  default     = "t2.micro"
+  default     = "t3.micro"
   description = "EC2 instance type"
 }
 
 variable "ami_id" {
   type        = string
-  default     = "ami-08982f1c5bf93d976" // Replace with your desired Linux AMI
+  default     = "ami-051a31ab2f4d498f5" // Replace with your desired Linux AMI
   description = "AMI ID"
 }
 variable "vpc_cidr" {
@@ -23,6 +23,6 @@ variable "vpc_cidr" {
 
 variable "s3_bucket_storage" {
   type        = string
-  default     = "my-s3-bucket-giii" // Replace with a unique bucket name
+  default     = "my-s3-bucket-raviiiii" // Replace with a unique bucket name
   description = "S3 bucket name"
 }
