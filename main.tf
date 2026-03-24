@@ -5,8 +5,8 @@ resource "aws_vpc" "vpc" {
 
 # Subnet
 resource "aws_subnet" "subnet" {
-  cidr_block = "10.0.1.0/24"
-  vpc_id     = aws_vpc.vpc.id
+  cidr_block        = "10.0.1.0/24"
+  vpc_id            = aws_vpc.vpc.id
   availability_zone = "us-east-1a"
 }
 
@@ -36,6 +36,7 @@ resource "aws_security_group" "example" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 }
+
 # S3 Bucket
 resource "aws_s3_bucket" "example" {
   bucket = var.s3_bucket_storage
@@ -43,14 +44,16 @@ resource "aws_s3_bucket" "example" {
 
 # EC2 Instance
 resource "aws_instance" "example" {
-  ami           = var.ami_id
-  instance_type = var.instance_type
-  vpc_security_group_ids = [aws_security_group.example.id]
+  ami                    = var.ami_id
+  instance_type          = var.instance_type
+  vpc_security_group_ids  = [aws_security_group.example.id]
 
+  # Replace git.sh with inline commands
   user_data = <<-EOF
-                #!/bin/bash
-                ${file("${path.module}/scripts/git.sh")}
-            EOF
+              #!/bin/bash
+              echo "Terraform provisioning complete!" > /home/ec2-user/info.txt
+              # Add any additional setup commands here
+              EOF
 
   tags = {
     Name = "terraform-instance"
