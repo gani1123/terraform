@@ -1,17 +1,14 @@
 pipeline {
-    agent any
+    agent { label 'linux' } // run on your agent
 
     environment {
-        AWS_REGION = "ap-south-1"
+        TF_VAR_region = 'ap-south-1'
     }
 
     stages {
-
         stage('Checkout Code') {
             steps {
-                git branch: 'main',
-                url: 'https://github.com/gani1123/Terraform-modules.git',
-                credentialsId: 'github-credentials'
+                git branch: 'main', url: 'https://github.com/gani1123/terraform.git'
             }
         }
 
@@ -21,16 +18,12 @@ pipeline {
             }
         }
 
-        stage('Terraform Validate') {
+        stage('Terraform Plan') {
             steps {
-                sh 'terraform validate'
+                sh 'terraform plan -out=tfplan'
             }
         }
 
-        stage('Terraform Plan') {
-            steps {
-                sh 'terraform plan'
-            }
-        }
+        
     }
 }
